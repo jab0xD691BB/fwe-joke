@@ -1,0 +1,5 @@
+node_modules
+dist
+.idea
+backend/dist
+backend/node_modules

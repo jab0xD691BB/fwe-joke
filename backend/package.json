@@ -1,0 +1,46 @@
+{
+  "name": "node-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "dependencies": {
+    "@types/bcrypt": "^5.0.0",
+    "@types/node-fetch": "^2.5.12",
+    "@types/objects-to-csv": "^1.3.1",
+    "bcrypt": "^5.0.1",
+    "body-parser": "^1.19.0",
+    "class-validator": "^0.13.1",
+    "express": "^4.17.1",
+    "express-validator": "^6.11.1",
+    "jsonwebtoken": "^8.5.1",
+    "mysql2": "^2.2.5",
+    "node-fetch": "^2.6.1",
+    "objects-to-csv": "^1.3.6",
+    "ts-node": "^10.2.1",
+    "typeorm": "^0.2.32",
+    "typescript": "^4.2.4",
+    "yup": "^0.32.9"
+  },
+  "devDependencies": {
+    "@types/express": "^4.17.11",
+    "@types/jsonwebtoken": "^8.5.5",
+    "@typescript-eslint/eslint-plugin": "^4.24.0",
+    "@typescript-eslint/parser": "^4.24.0",
+    "eslint": "^7.26.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-plugin-prettier": "^3.4.0",
+    "prettier": "^2.3.0",
+    "tsc-watch": "^4.2.9"
+  },
+  "scripts": {
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "start": "tsc-watch --outDir ./dist --onSuccess \"node ./dist/index.js\"",
+    "build": "tsc -b .",
+    "typeorm": "typeorm",
+    "debug": "tsc-watch --outDir ./dist --onSuccess \"node --inspect=0.0.0.0:9229 ./dist/index\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
