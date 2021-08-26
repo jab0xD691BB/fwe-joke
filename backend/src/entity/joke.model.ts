@@ -1,13 +1,19 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  PrimaryGeneratedColumn,
+  UpdateDateColumn,
+} from "typeorm";
 import * as yup from "yup";
 
 export const jokeSchema = yup.object().shape({
-  titel: yup.string().required(),
+  titel: yup.string().required().min(3),
   text: yup.string().required(),
+  visible: yup.boolean(),
+  funniness: yup.number(),
   //....
 });
-
-
 
 @Entity()
 export class Joke {
@@ -26,10 +32,9 @@ export class Joke {
   @UpdateDateColumn()
   updateAt?: string;
 
-  @Column({default: true})
+  @Column({ default: true })
   visible?: boolean;
 
-  @Column({default: 0})
+  @Column({ default: 0 })
   funniness?: number;
-
 }

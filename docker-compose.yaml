@@ -28,7 +28,7 @@ services:
     ports:
       - 4000:4000
       - 9229:9229
-    command: npm run debug
+    command: npm start
     volumes:
       - ./backend:/var/app/backend
 
@@ -40,6 +40,8 @@ services:
     command: npm start
     volumes:
       - ./frontend:/var/app/frontend
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
 
 volumes:
   my-datavolume:
