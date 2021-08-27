@@ -9,7 +9,7 @@ import * as yup from "yup";
 
 export const jokeSchema = yup.object().shape({
   titel: yup.string().required().min(3),
-  text: yup.string().required(),
+  text: yup.string().required().min(3),
   visible: yup.boolean(),
   funniness: yup.number(),
   //....

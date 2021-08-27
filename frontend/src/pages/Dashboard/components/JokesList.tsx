@@ -1,8 +1,10 @@
-import React, { useState } from "react";
+import React, { EventHandler, useState } from "react";
 import styled from "styled-components/macro";
-import { theme } from "../../../theme";
+import { Modal } from "../../../components/Modal";
 import { EditButton, DeleteButton, SmileyButton } from "./Button";
-import { requestApi } from "./UpdateFunniness";
+import { DeleteJoke } from "./DeleteJoke";
+import { EditJokeFormular } from "./EditJoke";
+import { requestApi } from "./RequestApi";
 
 export type Joke = {
   id: string;
@@ -52,7 +54,7 @@ const JokeFooter = styled.div`
   margin: 0 auto;
 `;
 
-export type JokeListProp = {
+/*export type JokeListProp = {
   afterUpdate: () => void;
   jokesList: Joke[];
 };
@@ -61,7 +63,7 @@ export const JokesList: React.FC<JokeListProp> = ({
   jokesList,
   afterUpdate,
 }) => {
-  console.log("jokesList", jokesList);
+  console.log("newjoke", jokesList);
   return (
     <div css={``}>
       {jokesList.map((joke) => {
@@ -75,50 +77,114 @@ export const JokesList: React.FC<JokeListProp> = ({
       })}
     </div>
   );
-};
+};*/
 
 type JokeProp = {
   afterUpdate: () => void;
   jokeItem: Joke;
 };
 
-const JokeItem: React.FC<JokeProp> = ({ jokeItem, afterUpdate }) => {
-  console.log("funniness: ", jokeItem.funniness);
-  const [joke, setJoke] = useState<Joke>(jokeItem);
+export const JokeItem: React.FC<JokeProp> = ({ afterUpdate, jokeItem }) => {
   const [smileHover, setSmileHover] = useState<Number>(jokeItem.funniness);
+  const [isHovered, setIsHover] = useState<boolean>(false);
+  const [editJokeVisible, setEditJokeVisible] = React.useState(false);
+  const [confirmVisible, setConfirmVisible] = React.useState(false);
+
   const smileys = [];
+
   const smileyHandlerInParent = (e: React.MouseEvent, id: Number) => {
     setSmileHover(id);
+    setIsHover(true);
   };
 
   for (let i = 1; i <= 10; i++) {
     smileys.push(
       <SmileyButton
-        hover={i <= smileHover ? true : false}
+        key={i}
+        hover={
+          i <= (isHovered ? smileHover : jokeItem.funniness) ? true : false
+        }
         smileyId={i}
         smileyHandler={smileyHandlerInParent}
       ></SmileyButton>
     );
   }
 
+  interface requestOptions {
+    method: string;
+    headers: {};
+    body: string;
+  }
+  const onClickHandler = async () => {
+    jokeItem.funniness = smileHover;
+    let requestOptions: requestOptions = {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(jokeItem),
+    };
+
+    const path = `/api/joke/${jokeItem.id}`;
+
+    await fetch(path, requestOptions);
+    afterUpdate();
+  };
+
   return (
     <JokeLayout>
       <JokeHeader>
         <JokeTitel>{jokeItem.titel}</JokeTitel>
-        <EditButton />
-        <DeleteButton />
+        <EditButton
+          onClick={() => {
+            setEditJokeVisible(!editJokeVisible);
+          }}
+        />
+        <DeleteButton
+          onClick={() => {
+            setConfirmVisible(!confirmVisible);
+          }}
+        />
+        {confirmVisible && (
+          <Modal
+            title={`Delete ${jokeItem.titel}?`}
+            exitModal={() => {
+              setConfirmVisible(!confirmVisible);
+            }}
+          >
+            <DeleteJoke
+              deleteJoke={jokeItem}
+              afterDelete={() => {
+                setConfirmVisible(!confirmVisible);
+                afterUpdate();
+              }}
+            >
+              test
+            </DeleteJoke>
+          </Modal>
+        )}
       </JokeHeader>
       <JokeBody>{jokeItem.text}</JokeBody>
+      {editJokeVisible && (
+        <Modal
+          title={`Edit ${jokeItem.titel}`}
+          exitModal={() => {
+            setEditJokeVisible(!editJokeVisible);
+          }}
+        >
+          <EditJokeFormular
+            editJoke={jokeItem}
+            afterSubmit={() => {
+              setEditJokeVisible(!editJokeVisible);
+              afterUpdate();
+            }}
+          />
+        </Modal>
+      )}
       <JokeFooter
         onMouseLeave={() => {
-          setSmileHover(joke.funniness);
+          setSmileHover(jokeItem.funniness);
+          setIsHover(false);
         }}
-        onClick={() => {
-          joke.funniness = smileHover;
-          setJoke(joke);
-          requestApi(jokeItem);
-          afterUpdate();
-        }}
+        onClick={onClickHandler}
       >
         {smileys}
       </JokeFooter>

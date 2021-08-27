@@ -92,6 +92,7 @@ export const updateJoke: RequestHandler<
 
       console.log("joke to update: " + JSON.stringify(joke));
       res.send(jokeResponse);
+      console.log("Time: ", new Date().toUTCString());
     })
     .catch((e) => {
       res.status(StatusCode.BAD_REQUEST).send(undefined);

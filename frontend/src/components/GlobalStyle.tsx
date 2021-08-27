@@ -1,10 +1,9 @@
 import { createGlobalStyle } from "styled-components";
-import { theme } from "../theme";
 
 export const GlobalStyle = createGlobalStyle`
 
     *{
-        box-sizing:border-box;
+        box-sizing: border-box;
     }
     body, html{
         color:${(props) => props.theme.colors.fontColor};

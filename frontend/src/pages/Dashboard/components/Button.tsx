@@ -31,15 +31,12 @@ const StyledEditButton = styled.button`
     background-color: ${(props) => props.theme.colors.backgroundColor};
   }
 `;
-const StyledSmiley = styled.span`
-  display: inline-block;
-`;
 
-export const EditButton = (
-  props: React.ButtonHTMLAttributes<HTMLButtonElement>
-) => {
+export const EditButton = ({
+  ...props
+}: React.ButtonHTMLAttributes<HTMLButtonElement>) => {
   return (
-    <StyledEditButton>
+    <StyledEditButton {...props}>
       <svg
         width="100%"
         height="100%"
@@ -54,11 +51,11 @@ export const EditButton = (
   );
 };
 
-export const DeleteButton = (
-  props: React.ButtonHTMLAttributes<HTMLButtonElement>
-) => {
+export const DeleteButton = ({
+  ...props
+}: React.ButtonHTMLAttributes<HTMLButtonElement>) => {
   return (
-    <StyledDeleteButton>
+    <StyledDeleteButton {...props}>
       <svg
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
@@ -84,31 +81,29 @@ export const SmileyButton: React.FC<SmileyProps> = ({
 }) => {
   const smileId: Number = smileyId;
   return (
-    <StyledSmiley>
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        enable-background="new 0 0 20 20"
-        height="18px"
-        width="18px"
-        viewBox="0 0 20 20"
-        fill={hover ? "yellow" : "#000000"}
-        onMouseEnter={(e) => {
-          smileyHandler(e, smileId);
-        }}
-      >
+    <svg
+      id={"" + smileyId}
+      xmlns="http://www.w3.org/2000/svg"
+      height="18px"
+      width="18px"
+      viewBox="0 0 20 20"
+      fill={hover ? "yellow" : "#000000"}
+      onMouseEnter={(e) => {
+        smileyHandler(e, smileId);
+      }}
+    >
+      <g>
+        <rect fill="none" height="20" width="20" x="0" />
+      </g>
+      <g>
+        <g />
         <g>
-          <rect fill="none" height="20" width="20" x="0" />
+          <path d="M10,14c1.86,0,3.41-1.28,3.86-3H6.14C6.59,12.72,8.14,14,10,14z" />
+          <path d="M9.99,3C6.13,3,3,6.14,3,10s3.13,7,6.99,7c3.87,0,7.01-3.14,7.01-7S13.86,3,9.99,3z M9.99,16C6.69,16,4,13.31,4,10 s2.69-6,5.99-6C13.31,4,16,6.69,16,10S13.31,16,9.99,16z" />
+          <circle cx="13" cy="8" r="1" />
+          <circle cx="7" cy="8" r="1" />
         </g>
-        <g>
-          <g />
-          <g>
-            <path d="M10,14c1.86,0,3.41-1.28,3.86-3H6.14C6.59,12.72,8.14,14,10,14z" />
-            <path d="M9.99,3C6.13,3,3,6.14,3,10s3.13,7,6.99,7c3.87,0,7.01-3.14,7.01-7S13.86,3,9.99,3z M9.99,16C6.69,16,4,13.31,4,10 s2.69-6,5.99-6C13.31,4,16,6.69,16,10S13.31,16,9.99,16z" />
-            <circle cx="13" cy="8" r="1" />
-            <circle cx="7" cy="8" r="1" />
-          </g>
-        </g>
-      </svg>
-    </StyledSmiley>
+      </g>
+    </svg>
   );
 };
