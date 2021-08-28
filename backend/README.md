@@ -62,4 +62,4 @@ Vorraussetzung ist, dass Docker lauffähig vorinstalliert ist.
    docker-compose exec -T backend npm run typeorm schema:sync
    ```
 
-MIT © [Yourname]()
+MIT © [Joseph Acosta-Becker]()

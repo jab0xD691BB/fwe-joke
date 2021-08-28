@@ -43,4 +43,9 @@ Vorraussetzung ist, dass Docker lauffähig vorinstalliert ist.
 
 Danach lässt sich die Webseite über http://localhost:3000/ erreichen.
 
-MIT © [Yourname]()
+## Anmerkung
+
+Aus Zeitlichen Gründen fehlt leider eine Zweite-Seite, dass ein zufälliger Witz aus einer Externen-Api holt und anzeigt.<br>
+Jedoch kann man einen zufälligen Witz aus der Externen-API holen und auf der Hauptseite anzeigen. Einfach die URL http://127.0.0.1:4000/api/jokeExternal/ auf einem anderen Tab oder Postman aufrufen und die Hauptseite aktualisieren.
+
+MIT © [Joseph Acosta-Becker]()
