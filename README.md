@@ -1,11 +1,11 @@
 ## Hausaufgabe
 
-Das Projekt ist eine Witze-Webseite. Diese können als Liste oder einzeln angezeigt werden. Außerdem kann ein Witz hinzugefügt, bearbeitet, bewertet oder gelöscht werden.
+Das Projekt ist eine Witze-Webseite. Diese können als Liste oder Einzeln angezeigt werden. Außerdem kann ein Witz hinzugefügt, bearbeitet, bewertet oder gelöscht werden.
 Die Witze werden mittels REST-API vom Backend geholt.
 
 ## Motivation
 
-Hausaufgabe.
+Außer der Hausaufgabenpflicht, gibt es ein persönliches Interesse an dieser Thematik.
 
 ## Screenshots
 
@@ -31,7 +31,7 @@ Vorraussetzung ist, dass Docker lauffähig vorinstalliert ist.
    docker-compose up
    ```
 
-4. Nachdem die Container erfolgreich laufen nochmal folgender Befehl eingeben, damit die Datenbank synchronisiert wird:<br>
+4. Nachdem die Container erfolgreich laufen, nochmal folgender Befehl eingeben, damit die Datenbank synchronisiert wird:<br>
 
    ```console
    docker-compose exec -T backend npm run typeorm schema:sync
