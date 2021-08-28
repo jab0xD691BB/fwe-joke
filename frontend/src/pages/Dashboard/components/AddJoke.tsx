@@ -3,7 +3,7 @@ import styled from "styled-components/macro";
 import { Button } from "../../../components/Button";
 import { Input, TextField } from "../../../components/Input";
 import { Joke } from "./JokesList";
-import { requestApi, requestOptions } from "./RequestApi";
+import { requestOptions } from "./RequestApi";
 
 const JokeFormular = styled.div`
   display: flex;
@@ -28,8 +28,6 @@ export const AddJokeFormular: React.FC<{ afterSubmit: () => void }> = ({
 
   const [joke, setJoke] = useState<Joke>(jk);
 
-  console.log(joke);
-
   const onSubMitForm = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     let requestOptions: requestOptions = {
@@ -39,7 +37,6 @@ export const AddJokeFormular: React.FC<{ afterSubmit: () => void }> = ({
     };
 
     const path = `/api/joke/`;
-    console.log(path);
 
     await fetch(path, requestOptions);
     afterSubmit();
@@ -48,7 +45,6 @@ export const AddJokeFormular: React.FC<{ afterSubmit: () => void }> = ({
   const onChangeHandler = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
-    console.log(e.target.name);
     setJoke({
       id: "",
       titel: e.target.name === "titel" ? e.target.value : joke.titel,

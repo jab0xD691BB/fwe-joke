@@ -56,11 +56,11 @@ export const Layout: React.FC = ({ children }) => {
           </span>
         </div>
         <NavigationList>
-          <NavigationItem>Home</NavigationItem>
+          <NavigationItem></NavigationItem>
         </NavigationList>
       </Header>
       <Main>{children}</Main>
-      <Footer>Footer</Footer>
+      <Footer></Footer>
     </>
   );
 };

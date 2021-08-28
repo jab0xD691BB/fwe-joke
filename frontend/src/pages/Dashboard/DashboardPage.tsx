@@ -1,28 +1,60 @@
 import React, { useState } from "react";
 import styled from "styled-components/macro";
 import { InputFunniness } from "../../components/FilterFunniness";
+import { AddImg, DownloadImg, SmileyImg } from "../../images/Images";
 import { Modal } from "../../components/Modal";
 import { AddJokeFormular } from "./components/AddJoke";
 import { Joke, JokeItem } from "./components/JokesList";
 
-const StyledButton = styled.button`
-  border-radius: 50%;
-  background-color: ${(props) => props.theme.colors.primary};
+const StyledDiv = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  height: 30px;
+  margin-bottom: 20px;
+  width: 90%;
 `;
 
-const AddButton = (props: React.ButtonHTMLAttributes<HTMLButtonElement>) => {
-  return <StyledButton {...props}></StyledButton>;
-};
+const StyledButton = styled.button`
+  width: 40px;
+  height: 40px;
+  border: 0px;
+  border-radius: 50%;
+  margin-left: 10px;
+  display: flex;
+  justify-content: center;
+  background-color: ${(props) => props.theme.colors.jokeItemColor};
+  &:hover,
+  &:focus {
+    transform: scale(1.2, 1.2);
+    box-shadow: 0 5px 10px rgba(255, 255, 255, 0.2);
+  }
+`;
+const StyledSelect = styled.select`
+  background-color: ${(props) => props.theme.colors.jokeItemColor};
+  height: 30px;
+  border: 0px;
+  border-radius: 4px;
+  color: white;
+  font-size: 1em;
+  &:hover,
+  &:focus {
+    outline: 0px;
+  }
+`;
+
+const DownloadButton = styled.button`
+  border-radius: 50%;
+  background-color: ${(props) => props.theme.colors.jokeItemColor};
+`;
 
 export const DashboardPage = () => {
   const [jokes, setJokes] = useState<Joke[]>([]);
-  const [countJokes, setcountJokes] = useState<Number>(0);
   const [addJokeVisible, setAddJokeVisible] = React.useState(false);
   const [minValue, setMinValue] = React.useState(0);
   const [maxValue, setMaxValue] = React.useState(10);
 
   const getJokesFromApi = async () => {
-    console.log("send");
     const request = await fetch("/api/joke", {
       headers: { "content-type": "application/json" },
     });
@@ -30,12 +62,10 @@ export const DashboardPage = () => {
     if (request.status === 200) {
       const jokesJson = await request.json();
       setJokes(jokesJson.jokes);
-      setcountJokes(jokesJson.jokes.length);
     }
   };
 
   const getJokesFromApiWithParams = async (min: Number, max: Number) => {
-    console.log("send");
     const request = await fetch(`/api/joke/?min_fun=${min}&max_fun=${max}`, {
       headers: { "content-type": "application/json" },
     });
@@ -43,7 +73,6 @@ export const DashboardPage = () => {
     if (request.status === 200) {
       const jokesJson = await request.json();
       setJokes(jokesJson.jokes);
-      setcountJokes(jokesJson.jokes.length);
     }
   };
 
@@ -54,9 +83,7 @@ export const DashboardPage = () => {
   }, []);
 
   const selectChangeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
-    console.log(e.target.value);
     const sortType = e.target.value;
-    const jk = jokes;
     if (sortType === "ascending") {
       setJokes((jokes) =>
         [...jokes].sort((a, b) =>
@@ -74,14 +101,8 @@ export const DashboardPage = () => {
 
   return (
     <div>
-      <div
-        css={`
-          display: flex;
-          justify-content: flex-end;
-          height: 30px;
-          margin-bottom: 20px;
-        `}
-      >
+      <StyledDiv>
+        <SmileyImg />
         <InputFunniness
           label="min"
           name="funniness"
@@ -91,7 +112,6 @@ export const DashboardPage = () => {
           max={10}
           defaultValue={0}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            console.log("min", Number(e.target.value));
             setMinValue(Number(e.target.value));
             if (minValue >= maxValue) {
               e.target.value = "" + maxValue;
@@ -108,7 +128,6 @@ export const DashboardPage = () => {
           max={10}
           defaultValue={10}
           onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-            console.log("max", Number(e.target.value));
             setMaxValue(Number(e.target.value));
             if (minValue >= maxValue) {
               e.target.value = "" + minValue;
@@ -116,13 +135,20 @@ export const DashboardPage = () => {
             getJokesFromApiWithParams(minValue, Number(e.target.value));
           }}
         />
-        <select onChange={selectChangeHandler} name="cars" id="cars">
+        <div
+          css={`
+            border-left: 1px solid white;
+            height: 40px;
+            margin-left: 10px;
+            margin-right: 10px;
+          `}
+        ></div>
+        <StyledSelect onChange={selectChangeHandler} name="cars" id="cars">
           <option value="ascending">Jokes ascending</option>
           <option value="descending">Jokes descending</option>
-        </select>
-        <button
+        </StyledSelect>
+        <StyledButton
           onClick={async () => {
-            console.log("download");
             await fetch("/api/download", {
               headers: { "content-type": "text/csv" },
             })
@@ -136,33 +162,37 @@ export const DashboardPage = () => {
                 link.click();
                 link.parentNode?.removeChild(link);
               });
-            const link = document.createElement("a");
             //const jokesJson = await response.json();
           }}
         >
-          Download
-        </button>
-        <AddButton
+          <DownloadImg />
+        </StyledButton>
+        <StyledButton
           onClick={() => {
-            setAddJokeVisible(!addJokeVisible);
-          }}
-        />
-        {addJokeVisible && (
-          <Modal
-            title={`Add Joke`}
-            exitModal={() => {
+            if (!addJokeVisible) {
               setAddJokeVisible(!addJokeVisible);
-            }}
-          >
-            <AddJokeFormular
-              afterSubmit={() => {
-                getJokesFromApi();
+            }
+          }}
+        >
+          {addJokeVisible && (
+            <Modal
+              title={`Add Joke`}
+              exitModal={() => {
                 setAddJokeVisible(!addJokeVisible);
               }}
-            />
-          </Modal>
-        )}
-      </div>
+            >
+              <AddJokeFormular
+                afterSubmit={() => {
+                  getJokesFromApi();
+                  setAddJokeVisible(!addJokeVisible);
+                  console.log("exit modal");
+                }}
+              />
+            </Modal>
+          )}
+          <AddImg />
+        </StyledButton>
+      </StyledDiv>
       <div
         css={`
           display: flex;
@@ -170,9 +200,15 @@ export const DashboardPage = () => {
           width: 100%;
         `}
       >
-        <div>
+        <div
+          css={`
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+          `}
+        >
           {jokes.map((joke) => {
-            return (
+            return joke.funniness >= minValue && joke.funniness <= maxValue ? (
               <JokeItem
                 afterUpdate={() => {
                   getJokesFromApi();
@@ -180,6 +216,8 @@ export const DashboardPage = () => {
                 key={joke.id}
                 jokeItem={joke}
               ></JokeItem>
+            ) : (
+              ""
             );
           })}
         </div>

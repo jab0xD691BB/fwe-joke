@@ -7,7 +7,6 @@ const InputWrapper = styled.div`
   border-radius: 4px;
   border-width: 0px;
   margin-bottom: 2px;
-  background-color: #aa13b8ed;
   position: relative;
 `;
 
@@ -18,9 +17,11 @@ const InputLabeStyle = styled.label`
 `;
 
 const InputStyle = styled.input`
-  background-color: #01005783;
+  color: white;
+  background-color: #202020;
   outline-width: 0px;
   border-width: 0;
+  border-radius: 4px;
   height: 60px;
   font-size: 1.3rem;
   text-align: left;
@@ -35,9 +36,11 @@ const InputStyle = styled.input`
 `;
 
 export const TextFieldStyle = styled.textarea`
-  background-color: #01005783;
+  color: white;
+  background-color: #202020;
   outline-width: 0px;
   border-width: 0;
+  border-radius: 4px;
   height: 100px;
   width: 100%;
   font-size: 1rem;

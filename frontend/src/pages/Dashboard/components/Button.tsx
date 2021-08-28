@@ -2,8 +2,8 @@ import React from "react";
 import styled from "styled-components";
 
 const StyledDeleteButton = styled.button`
-  width: 24px;
-  height: 18px;
+  width: 32px;
+  height: 26px;
   border: 0px;
   display: flex;
   justify-content: center;
@@ -17,8 +17,8 @@ const StyledDeleteButton = styled.button`
 `;
 
 const StyledEditButton = styled.button`
-  width: 24px;
-  height: 18px;
+  width: 32px;
+  height: 26px;
   border: 0px;
   display: flex;
   justify-content: center;

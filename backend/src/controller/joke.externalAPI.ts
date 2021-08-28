@@ -25,7 +25,10 @@ export const getJokeFromExternalApi: RequestHandler<
   console.log(jokes);
 
   let createdJoke: any;
-  let newJoke: CreateJoke = { titel: "test", text: jokes.joke };
+  let newJoke: CreateJoke = {
+    titel: jokes.category + " Joke",
+    text: jokes.joke,
+  };
 
   createdJoke = await jokeRepository
     .findOneOrFail({ titel: "test", text: jokes.joke })

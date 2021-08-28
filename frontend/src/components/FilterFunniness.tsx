@@ -3,21 +3,27 @@ import styled from "styled-components";
 
 const InputWrapper = styled.div`
   display: flex;
+  align-items: center;
   border-radius: 4px;
-  border-width: 1px;
-  width: 70px;
-  background-color: #e0b3e4ec;
-  margin-right: 15px;
+  color: white;
+  background-color: ${(props) => props.theme.colors.jokeItemColor};
+  margin-left: 10px;
+  height: 30px;
 `;
 
-const InputLabeStyle = styled.label``;
+const InputLabeStyle = styled.label`
+  padding-right: 2px;
+`;
 
 const InputStyle = styled.input`
-  background-color: #e0b3e4ec;
+  color: white;
+  background-color: ${(props) => props.theme.colors.jokeItemColor};
   outline-width: 0px;
   font-size: 1.2em;
   text-align: left;
   width: 50px;
+  border-radius: 4px;
+  border: 0px;
 `;
 
 export const InputFunniness = ({

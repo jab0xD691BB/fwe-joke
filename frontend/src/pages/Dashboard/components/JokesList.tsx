@@ -1,10 +1,9 @@
-import React, { EventHandler, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components/macro";
 import { Modal } from "../../../components/Modal";
 import { EditButton, DeleteButton, SmileyButton } from "./Button";
 import { DeleteJoke } from "./DeleteJoke";
 import { EditJokeFormular } from "./EditJoke";
-import { requestApi } from "./RequestApi";
 
 export type Joke = {
   id: string;
@@ -19,12 +18,20 @@ export type Joke = {
 const JokeLayout = styled.div`
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
   background-color: ${(props) => props.theme.colors.jokeItemColor};
   border-radius: 7px;
-  margin-bottom: 3px;
+  height: 120px;
+  width: 80%;
+  margin-bottom: 10px;
   &:last-of-type {
     margin-bottom: 0;
   }
+  &:hover,
+  &:focus {
+    box-shadow: 0 5px 10px rgba(255, 255, 255, 0.2);
+  }
+  position: relative;
 `;
 
 const JokeHeader = styled.div`
@@ -33,51 +40,26 @@ const JokeHeader = styled.div`
 `;
 
 const JokeTitel = styled.p`
+  display: flex;
+  justify-content: center;
   width: 100%;
-  font-size: 1.2rem;
+  font-size: 1.3rem;
   font-weight: 400;
   margin: 0;
-  text-align: center;
-  padding-left: 48px;
 `;
 
-const JokeBody = styled.p`
-  width: 100%;
+const JokeBody = styled.div`
   font-size: 1rem;
-  padding: 10px 0 10px 0;
+  padding: 10px 25px 10px 25px;
   margin: 0;
-  text-align: center;
+  display: flex;
+  justify-content: center;
 `;
 
 const JokeFooter = styled.div`
   display: inline-block;
   margin: 0 auto;
 `;
-
-/*export type JokeListProp = {
-  afterUpdate: () => void;
-  jokesList: Joke[];
-};
-
-export const JokesList: React.FC<JokeListProp> = ({
-  jokesList,
-  afterUpdate,
-}) => {
-  console.log("newjoke", jokesList);
-  return (
-    <div css={``}>
-      {jokesList.map((joke) => {
-        return (
-          <JokeItem
-            afterUpdate={afterUpdate}
-            key={joke.id}
-            jokeItem={joke}
-          ></JokeItem>
-        );
-      })}
-    </div>
-  );
-};*/
 
 type JokeProp = {
   afterUpdate: () => void;
@@ -133,16 +115,24 @@ export const JokeItem: React.FC<JokeProp> = ({ afterUpdate, jokeItem }) => {
     <JokeLayout>
       <JokeHeader>
         <JokeTitel>{jokeItem.titel}</JokeTitel>
-        <EditButton
-          onClick={() => {
-            setEditJokeVisible(!editJokeVisible);
-          }}
-        />
-        <DeleteButton
-          onClick={() => {
-            setConfirmVisible(!confirmVisible);
-          }}
-        />
+        <div
+          css={`
+            display: flex;
+            position: absolute;
+            right: 0px;
+          `}
+        >
+          <EditButton
+            onClick={() => {
+              setEditJokeVisible(!editJokeVisible);
+            }}
+          />
+          <DeleteButton
+            onClick={() => {
+              setConfirmVisible(!confirmVisible);
+            }}
+          />
+        </div>
         {confirmVisible && (
           <Modal
             title={`Delete ${jokeItem.titel}?`}
@@ -152,9 +142,12 @@ export const JokeItem: React.FC<JokeProp> = ({ afterUpdate, jokeItem }) => {
           >
             <DeleteJoke
               deleteJoke={jokeItem}
-              afterDelete={() => {
+              responseYes={() => {
                 setConfirmVisible(!confirmVisible);
                 afterUpdate();
+              }}
+              responseNo={() => {
+                setConfirmVisible(!confirmVisible);
               }}
             >
               test

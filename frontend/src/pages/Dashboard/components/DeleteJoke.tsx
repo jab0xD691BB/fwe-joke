@@ -1,9 +1,7 @@
-import React, { ChangeEvent, useState } from "react";
 import styled from "styled-components/macro";
 import { Button } from "../../../components/Button";
-import { Input, TextField } from "../../../components/Input";
 import { Joke } from "./JokesList";
-import { requestApi, requestOptions } from "./RequestApi";
+import { requestOptions } from "./RequestApi";
 
 const DeleteConfirmation = styled.div`
   display: flex;
@@ -20,9 +18,10 @@ const ButtonWrapper = styled.div`
 `;
 
 export const DeleteJoke: React.FC<{
-  afterDelete: () => void;
+  responseYes: () => void;
+  responseNo: () => void;
   deleteJoke: Joke;
-}> = ({ afterDelete, deleteJoke }) => {
+}> = ({ responseYes, responseNo, deleteJoke }) => {
   const onClickHandler = async (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     const answer = e.currentTarget.value;
@@ -37,9 +36,10 @@ export const DeleteJoke: React.FC<{
       console.log(path);
 
       await fetch(path, requestOptions);
+      responseYes();
+    } else {
+      responseNo();
     }
-
-    afterDelete();
   };
 
   return (

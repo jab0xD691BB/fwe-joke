@@ -1,4 +1,3 @@
-import React, { EventHandler } from "react";
 import ReactDOM from "react-dom";
 import styled from "styled-components/macro";
 
@@ -16,7 +15,8 @@ const ModalFormHolder = styled.div`
   align-items: center;
   height: 100vh;
   width: 100%;
-  background-color: #4921452b;
+  background-color: #49214510;
+  z-index: 1;
 `;
 
 const ModalFormInnerHolder = styled.div`
@@ -25,7 +25,7 @@ const ModalFormInnerHolder = styled.div`
   text-align: center;
 
   border-radius: 10px;
-  background-color: #000000;
+  background-color: #b6b6b6;
 `;
 
 interface ModalProps {
@@ -52,7 +52,13 @@ export const Modal: React.FC<ModalProps> = ({ title, children, exitModal }) => {
     <ModalStyle>
       <ModalFormHolder id={"modal"} onClick={onClickHandler}>
         <ModalFormInnerHolder>
-          <p>{title}</p>
+          <p
+            css={`
+              color: black;
+            `}
+          >
+            {title}
+          </p>
           {children}
         </ModalFormInnerHolder>
       </ModalFormHolder>

@@ -3,7 +3,7 @@ import styled from "styled-components/macro";
 import { Button } from "../../../components/Button";
 import { Input, TextField } from "../../../components/Input";
 import { Joke } from "./JokesList";
-import { requestApi, requestOptions } from "./RequestApi";
+import { requestOptions } from "./RequestApi";
 
 const JokeFormular = styled.div`
   display: flex;
@@ -17,16 +17,6 @@ export const EditJokeFormular: React.FC<{
   afterSubmit: () => void;
   editJoke: Joke;
 }> = ({ afterSubmit, editJoke }) => {
-  let jk: Joke = {
-    id: "",
-    titel: "",
-    text: "",
-    createdAt: "",
-    updatedAt: "",
-    visible: true,
-    funniness: 0,
-  };
-
   const [joke, setJoke] = useState<Joke>(editJoke);
 
   const onSubMitForm = async (e: React.FormEvent<HTMLFormElement>) => {
