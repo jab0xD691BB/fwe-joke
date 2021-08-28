@@ -20,7 +20,7 @@ Das Projekt ist nötig um Hausaufgabe 1 zu bestehen.
 Die Witze können vom Frontend aus erstellt, bearbeitet, bewertet und gelöscht werden.
 Außerdem kann man Witze nach der Lustigkeit auf- oder absteigend sortieren sowie
 nach der Lustigkeit filtern.
-Die Bewertung der Witze kann über die Smileys erfolgen oder durch den Bearbeiten-Button.
+Die Bewertung der Witze kann über die Smileys erfolgen oder durch den Edit-Button.
 Betätigt man den Add-Button, Edit-Button oder Delete-Button erscheint ein Pop-Up Fenster welches man durch klicken im Hintergrund schließen kann.
 
 ## Installation
