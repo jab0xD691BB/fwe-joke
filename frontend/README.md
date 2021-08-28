@@ -1,6 +1,6 @@
 ## Frontend
 
-Das Frontend nutzt die REST-API um sich die Daten vom Backend zu holen und anzuzeuigen.
+Das Frontend nutzt die REST-API um sich die Daten vom Backend zu holen und anzuzeigen.
 
 ## Motivation
 
