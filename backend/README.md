@@ -4,13 +4,13 @@ Das Backend nutzt REST-API um das Frontend mit Witzen zu versorgen.
 
 ## Motivation
 
-Das Projekt ist nötig um Hausaufgabe 1 zu bestehen.
+Das Projekt ist nötig um Hausaufgabe 1 zu bestehen, aus Neigung und um einen persönlichen Fortschritt zu erzielen.
 
 ## Features
 
 Mit der API können Witze aus der Datenbank gelesen, erstellt, bearbeitet oder gelöscht werden.
-Außerdem kann man die Witze-Liste, durch bestimmte Parameter, filtern.
-Des weiteren können Witze aus einer Externen-API geholt werden, die dann in der Datenbank gespeichert wird. Zusätzlich existiert ein Endpunkt worüber man die Witze als CSV-Datei downloaden kann.
+Außerdem kann man die Witze-Liste durch bestimmte Parameter filtern.
+Des Weiteren können Witze aus einer externen-API geholt werden, die dann in der Datenbank gespeichert wird. Zusätzlich existiert ein Endpunkt worüber man die Witze als CSV-Datei downloaden kann.
 Die API stellt folgende Endpunkte bereit um das CRUD System zu realisieren:<br>
 
 Create: POST http://127.0.0.1:4000/api/joke/<br>
@@ -23,7 +23,7 @@ DELETE: DELETE http://127.0.0.1:4000/api/joke/:id<br>
 Externe-API: GET http://127.0.0.1:4000/api/jokeExternal/<br>
 Download: GET http://127.0.0.1:4000/api/download<br>
 
-Das Datenformat welches zum verschicken verwendet wird ist JSON.
+Das Datenformat welches zum Verschicken verwendet wird ist JSON.
 
 ```javascript
 {
@@ -56,7 +56,7 @@ Vorraussetzung ist, dass Docker lauffähig vorinstalliert ist.
    docker-compose up
    ```
 
-4. Nachdem die Container erfolgreich laufen nochmal folgender Befehl eingeben, damit die Datenbank synchronisiert wird:<br>
+4. Nachdem die Container erfolgreich laufen, wird nochmal folgender Befehl eingegeben, damit die Datenbank synchronisiert wird:<br>
 
    ```console
    docker-compose exec -T backend npm run typeorm schema:sync
