@@ -21,17 +21,15 @@ const JokeLayout = styled.div`
   justify-content: space-between;
   background-color: ${(props) => props.theme.colors.jokeItemColor};
   border-radius: 7px;
-  height: 120px;
   width: 80%;
   margin-bottom: 10px;
-  &:last-of-type {
-    margin-bottom: 0;
-  }
+
   &:hover,
   &:focus {
     box-shadow: 0 5px 10px rgba(255, 255, 255, 0.2);
   }
   position: relative;
+  overflow: hidden;
 `;
 
 const JokeHeader = styled.div`
@@ -42,10 +40,12 @@ const JokeHeader = styled.div`
 const JokeTitel = styled.p`
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 100%;
   font-size: 1.3rem;
   font-weight: 400;
   margin: 0;
+  height: 35px;
 `;
 
 const JokeBody = styled.div`
@@ -54,11 +54,16 @@ const JokeBody = styled.div`
   margin: 0;
   display: flex;
   justify-content: center;
+  white-space: pre-wrap;
+  height: calc(100%-70px);
 `;
 
 const JokeFooter = styled.div`
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 0 auto;
+  height: 35px;
 `;
 
 type JokeProp = {

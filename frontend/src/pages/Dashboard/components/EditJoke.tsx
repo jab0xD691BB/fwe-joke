@@ -37,6 +37,7 @@ export const EditJokeFormular: React.FC<{
   const onChangeHandler = (
     e: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
+    console.log("ta value:", e.target.value);
     setJoke({
       id: joke.id,
       titel: e.target.name === "titel" ? e.target.value : joke.titel,

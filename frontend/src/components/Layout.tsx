@@ -1,8 +1,9 @@
 import React from "react";
+import { Link, Redirect } from "react-router-dom";
 import styled, { css } from "styled-components/macro";
 
-const headerHeight = "85px";
-const footerHeight = "50px";
+export const headerHeight = "85px";
+export const footerHeight = "50px";
 
 const MaxWidth = css`
   max-width: 860px;
@@ -19,7 +20,8 @@ const Header = styled.header`
 
 const Main = styled.main`
   min-height: calc(100vh - ${headerHeight} - ${footerHeight});
-  ${MaxWidth}
+  ${MaxWidth}//height: calc(100vh - ${headerHeight} - ${footerHeight});
+  //height: calc(100vh - ${headerHeight} - ${footerHeight});
 `;
 
 const Footer = styled.footer`
@@ -56,11 +58,26 @@ export const Layout: React.FC = ({ children }) => {
           </span>
         </div>
         <NavigationList>
-          <NavigationItem></NavigationItem>
+          <Link
+            css={`
+              text-decoration: none;
+            `}
+            to="/dashboard"
+          >
+            <NavigationItem>Home</NavigationItem>
+          </Link>
+          <Link
+            css={`
+              text-decoration: none;
+            `}
+            to="/random"
+          >
+            <NavigationItem>Random</NavigationItem>
+          </Link>
         </NavigationList>
       </Header>
       <Main>{children}</Main>
-      <Footer></Footer>
+      <Footer>Jo FWE Hausaufgabe</Footer>
     </>
   );
 };
