@@ -36,7 +36,7 @@ export const AddJokeFormular: React.FC<{ afterSubmit: () => void }> = ({
       body: JSON.stringify(joke),
     };
 
-    const path = `/api/joke/`;
+    const path = `/api/jokes/`;
 
     await fetch(path, requestOptions);
     afterSubmit();

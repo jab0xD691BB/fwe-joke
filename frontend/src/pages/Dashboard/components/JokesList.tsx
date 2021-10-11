@@ -67,7 +67,7 @@ const JokeFooter = styled.div`
 `;
 
 type JokeProp = {
-  afterUpdate: () => void;
+  afterUpdate: (crud?: string) => void;
   jokeItem: Joke;
 };
 
@@ -110,7 +110,7 @@ export const JokeItem: React.FC<JokeProp> = ({ afterUpdate, jokeItem }) => {
       body: JSON.stringify(jokeItem),
     };
 
-    const path = `/api/joke/${jokeItem.id}`;
+    const path = `/api/jokes/${jokeItem.id}`;
 
     await fetch(path, requestOptions);
     afterUpdate();
@@ -149,7 +149,7 @@ export const JokeItem: React.FC<JokeProp> = ({ afterUpdate, jokeItem }) => {
               deleteJoke={jokeItem}
               responseYes={() => {
                 setConfirmVisible(!confirmVisible);
-                afterUpdate();
+                afterUpdate("delete");
               }}
               responseNo={() => {
                 setConfirmVisible(!confirmVisible);

@@ -45,7 +45,6 @@ export const TextFieldStyle = styled.textarea`
   width: 100%;
   font-size: 1rem;
   resize: none;
-  white-space: pre-wrap;
   &:focus + ${InputLabeStyle} {
     transform: matrix(0.8, 0, 0, 0.8, 0, -24.75);
   }

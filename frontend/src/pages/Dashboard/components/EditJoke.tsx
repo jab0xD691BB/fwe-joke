@@ -27,7 +27,7 @@ export const EditJokeFormular: React.FC<{
       body: JSON.stringify(joke),
     };
 
-    const path = `/api/joke/${joke.id}`;
+    const path = `/api/jokes/${joke.id}`;
     console.log(path);
 
     await fetch(path, requestOptions);

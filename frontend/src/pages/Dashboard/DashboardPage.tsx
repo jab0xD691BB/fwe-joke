@@ -16,7 +16,7 @@ const StyledDiv = styled.div`
   height: 40px;
 `;
 
-const StyledButton = styled.button`
+export const StyledButton = styled.button`
   width: 40px;
   height: 40px;
   border: 0px;
@@ -56,7 +56,7 @@ export const DashboardPage = () => {
   const [maxValue, setMaxValue] = React.useState(10);
 
   const getJokesFromApi = async () => {
-    const request = await fetch("/api/joke", {
+    const request = await fetch("/api/jokes", {
       headers: { "content-type": "application/json" },
     });
 
@@ -101,130 +101,128 @@ export const DashboardPage = () => {
   };
 
   return (
-    <Layout>
+    <div
+      id="what1"
+      css={`
+        min-height: calc(100vh - ${headerHeight} - ${footerHeight});
+      `}
+    >
+      <StyledDiv>
+        <SmileyImg />
+        <InputFunniness
+          label="min"
+          name="funniness"
+          type="number"
+          required
+          min={0}
+          max={10}
+          defaultValue={0}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setMinValue(Number(e.target.value));
+            if (minValue >= maxValue) {
+              e.target.value = "" + maxValue;
+            }
+            getJokesFromApiWithParams(Number(e.target.value), maxValue);
+          }}
+        />
+        <InputFunniness
+          label="max"
+          name="funniness"
+          type="number"
+          required
+          min={0}
+          max={10}
+          defaultValue={10}
+          onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
+            setMaxValue(Number(e.target.value));
+            if (minValue >= maxValue) {
+              e.target.value = "" + minValue;
+            }
+            getJokesFromApiWithParams(minValue, Number(e.target.value));
+          }}
+        />
+        <div
+          css={`
+            border-left: 1px solid white;
+            height: 40px;
+            margin-left: 10px;
+            margin-right: 10px;
+          `}
+        ></div>
+        <StyledSelect onChange={selectChangeHandler} name="cars" id="cars">
+          <option value="ascending">Jokes ascending</option>
+          <option value="descending">Jokes descending</option>
+        </StyledSelect>
+        <StyledButton
+          onClick={async () => {
+            await fetch("/api/download", {
+              headers: { "content-type": "text/csv" },
+            })
+              .then((response) => response.blob())
+              .then((blob) => {
+                const url = window.URL.createObjectURL(new Blob([blob]));
+                const link = document.createElement("a");
+                link.href = url;
+                link.setAttribute("download", "jokes.csv");
+                document.body.appendChild(link);
+                link.click();
+                link.parentNode?.removeChild(link);
+              });
+            //const jokesJson = await response.json();
+          }}
+        >
+          <DownloadImg />
+        </StyledButton>
+        <StyledButton
+          onClick={() => {
+            if (!addJokeVisible) {
+              setAddJokeVisible(!addJokeVisible);
+            }
+          }}
+        >
+          {addJokeVisible && (
+            <Modal
+              title={`Add Joke`}
+              exitModal={() => {
+                setAddJokeVisible(!addJokeVisible);
+              }}
+            >
+              <AddJokeFormular
+                afterSubmit={() => {
+                  getJokesFromApi();
+                  setAddJokeVisible(!addJokeVisible);
+                  console.log("exit modal");
+                }}
+              />
+            </Modal>
+          )}
+          <AddImg />
+        </StyledButton>
+      </StyledDiv>
+
       <div
-        id="what1"
+        id="what2"
         css={`
-          min-height: calc(100vh - ${headerHeight} - ${footerHeight});
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          min-height: calc(100vh - ${headerHeight} - ${footerHeight} - 60px);
         `}
       >
-        <StyledDiv>
-          <SmileyImg />
-          <InputFunniness
-            label="min"
-            name="funniness"
-            type="number"
-            required
-            min={0}
-            max={10}
-            defaultValue={0}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setMinValue(Number(e.target.value));
-              if (minValue >= maxValue) {
-                e.target.value = "" + maxValue;
-              }
-              getJokesFromApiWithParams(Number(e.target.value), maxValue);
-            }}
-          />
-          <InputFunniness
-            label="max"
-            name="funniness"
-            type="number"
-            required
-            min={0}
-            max={10}
-            defaultValue={10}
-            onChange={(e: React.ChangeEvent<HTMLInputElement>) => {
-              setMaxValue(Number(e.target.value));
-              if (minValue >= maxValue) {
-                e.target.value = "" + minValue;
-              }
-              getJokesFromApiWithParams(minValue, Number(e.target.value));
-            }}
-          />
-          <div
-            css={`
-              border-left: 1px solid white;
-              height: 40px;
-              margin-left: 10px;
-              margin-right: 10px;
-            `}
-          ></div>
-          <StyledSelect onChange={selectChangeHandler} name="cars" id="cars">
-            <option value="ascending">Jokes ascending</option>
-            <option value="descending">Jokes descending</option>
-          </StyledSelect>
-          <StyledButton
-            onClick={async () => {
-              await fetch("/api/download", {
-                headers: { "content-type": "text/csv" },
-              })
-                .then((response) => response.blob())
-                .then((blob) => {
-                  const url = window.URL.createObjectURL(new Blob([blob]));
-                  const link = document.createElement("a");
-                  link.href = url;
-                  link.setAttribute("download", "jokes.csv");
-                  document.body.appendChild(link);
-                  link.click();
-                  link.parentNode?.removeChild(link);
-                });
-              //const jokesJson = await response.json();
-            }}
-          >
-            <DownloadImg />
-          </StyledButton>
-          <StyledButton
-            onClick={() => {
-              if (!addJokeVisible) {
-                setAddJokeVisible(!addJokeVisible);
-              }
-            }}
-          >
-            {addJokeVisible && (
-              <Modal
-                title={`Add Joke`}
-                exitModal={() => {
-                  setAddJokeVisible(!addJokeVisible);
-                }}
-              >
-                <AddJokeFormular
-                  afterSubmit={() => {
-                    getJokesFromApi();
-                    setAddJokeVisible(!addJokeVisible);
-                    console.log("exit modal");
-                  }}
-                />
-              </Modal>
-            )}
-            <AddImg />
-          </StyledButton>
-        </StyledDiv>
-
-        <div
-          id="what2"
-          css={`
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: calc(100vh - ${headerHeight} - ${footerHeight} - 60px);
-          `}
-        >
-          {jokes.map((joke) => {
-            return joke.funniness >= minValue && joke.funniness <= maxValue ? (
-              <JokeItem
-                afterUpdate={() => {
-                  getJokesFromApi();
-                }}
-                key={joke.id}
-                jokeItem={joke}
-              ></JokeItem>
-            ) : (
-              ""
-            );
-          })}
-        </div>
+        {jokes.map((joke) => {
+          return joke.funniness >= minValue && joke.funniness <= maxValue ? (
+            <JokeItem
+              afterUpdate={() => {
+                getJokesFromApi();
+              }}
+              key={joke.id}
+              jokeItem={joke}
+            ></JokeItem>
+          ) : (
+            ""
+          );
+        })}
       </div>
-    </Layout>
+    </div>
   );
 };

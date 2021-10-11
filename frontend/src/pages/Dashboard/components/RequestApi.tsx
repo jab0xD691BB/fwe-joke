@@ -13,7 +13,7 @@ export const requestApi = async (joke: Joke, crudMethod: string) => {
     body: JSON.stringify(joke),
   };
 
-  const path = `/api/joke/${crudMethod === "PUT" || "DELETE" ? joke.id : ""}`;
+  const path = `/api/jokes/${crudMethod === "PUT" || "DELETE" ? joke.id : ""}`;
   console.log(path);
 
   await fetch(path, requestOptions);

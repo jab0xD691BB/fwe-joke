@@ -12,6 +12,6 @@ globalRouter.get("/", (req, res) => {
   res.send({ message: "hello world global" } as HelloWorldReponse);
 });
 
-globalRouter.use("/joke", jokeRouter);
+globalRouter.use("/jokes", jokeRouter);
 globalRouter.use("/download", jokeDownloadRouter);
 globalRouter.use("/jokeExternal", externalJokeRouter);

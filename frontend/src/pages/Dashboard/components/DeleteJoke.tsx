@@ -32,7 +32,7 @@ export const DeleteJoke: React.FC<{
         body: JSON.stringify(deleteJoke),
       };
 
-      const path = `/api/joke/${deleteJoke.id}`;
+      const path = `/api/jokes/${deleteJoke.id}`;
       console.log(path);
 
       await fetch(path, requestOptions);
